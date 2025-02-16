@@ -1,0 +1,34 @@
+class Solution {
+public:
+    double findMed(vector<double>& a, int k)
+    {
+         vector<double>p(a);
+         sort(p.begin(),p.end());
+         int s=0,e=p.size();
+         int mid=s+(e-s)/2;
+         if(k%2!=0){
+            return p[mid];
+         }
+         else{
+            return (p[mid]+p[mid-1])/2;
+         }
+         return -1;
+    }
+    vector<double> medianSlidingWindow(vector<int>& nums, int k) {
+        vector<double>ans;
+        int n=nums.size();
+        vector<double>a;
+        for(int j=0;j<n;j++){
+            if(j>=k)
+            {
+                double median=findMed(a,k);
+                ans.push_back(median);
+                a.erase(a.begin());
+            }
+            a.push_back(nums[j]); 
+        }
+        double median=findMed(a,k);
+        ans.push_back(median);
+        return ans;
+    }
+};
