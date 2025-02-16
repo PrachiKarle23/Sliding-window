@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int minimumRecolors(string blocks, int k) {
+        int i=0, j=0;
+        int n=blocks.size();
+        int cnt=0,miniCnt=INT_MAX;
+        for(;j<n;j++)
+        {
+           if(j>=k){
+               if(cnt<miniCnt){
+                  miniCnt=cnt;
+               }
+               if(blocks[i]=='W'){
+                  cnt=cnt-1;
+               }
+               i++;
+           }
+           if(blocks[j]=='W'){
+              cnt++;
+           }
+        }
+        if(cnt<miniCnt){
+           miniCnt=cnt;
+        }
+        return miniCnt;
+    }
+};
