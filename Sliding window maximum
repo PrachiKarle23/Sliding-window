@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        int n=nums.size(),i=0,j=0;
+        vector<int>ans;
+        vector<int>a;
+        for(;j<n;j++)
+        {
+            if(j>=k){
+               int maxi=*max_element(a.begin(),a.end());
+               ans.push_back(maxi);
+               a.erase(a.begin());
+            }
+            a.push_back(nums[j]);
+        }
+        int maxi=*max_element(a.begin(),a.end());
+        ans.push_back(maxi);
+        return ans;
+    }
+};
+
+//using multiset - Accepted
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int>ans;
+        int i=0,j=0,n=nums.size();
+        multiset<int>a;
+        for(;j<n;j++)
+        {
+            if(j>=k)
+            {
+                ans.push_back(*a.rbegin());
+                auto k=a.find(nums[i++]);
+                if(k!=a.end())
+                   a.erase(k); 
+            }
+            a.insert(nums[j]);
+        }
+        ans.push_back(*a.rbegin());
+        return ans;
+    }
+};
