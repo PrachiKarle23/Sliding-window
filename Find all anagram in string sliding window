@@ -1,0 +1,112 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        int n=p.size();
+        int m=s.size();
+        vector<int>ans;
+        sort(p.begin(),p.end());
+        int i=0,j=0;
+        string ps="";
+        for(;i<=m;i++){
+            if(i>=n){
+                string sp=ps;
+                sort(sp.begin(),sp.end());
+                if(sp==p){
+                  ans.push_back(j);
+                }
+                j++;
+                ps.erase(ps.begin());
+            }
+            if(i<m){
+               ps+=s[i];
+            }
+        }
+        return ans;
+    }
+};
+
+
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int>ans;
+        sort(p.begin(),p.end());
+
+        int i=0,j=0,n=s.length(),m=p.length(),cnt=0;
+
+        string a="";
+        for(;j<n;j++)
+        {
+            if(a.length()==m)
+            {
+               sort(a.begin(),a.end());
+               if(p==a){
+                  ans.push_back(i);
+               }
+               a="";
+               i++;
+               j=i;
+            }
+            a+=s[j];
+        }
+        sort(a.begin(),a.end());
+        if(p==a){
+            ans.push_back(i);
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    bool check(multiset<char>& ms, string &p)
+    {
+        multiset<char>ms1(ms);
+        for(int i=0;i<p.length();i++)
+        {
+            if(ms1.find(p[i])==ms1.end())
+            {
+                return false;
+            }
+            else{
+                auto k=ms1.find(p[i]);
+                if(k!=ms1.end())
+                {
+                    ms1.erase(k);
+                }
+            }
+        }
+        return true;
+    }
+    
+    vector<int> findAnagrams(string s, string p) {
+        vector<int>a;
+
+        int n=s.length(),m=p.length();
+
+        multiset<char>ms; 
+        int j=0,k=0,cnt=0;
+        while(j<n)
+        {
+            if(cnt==m)
+            {
+               if(check(ms,p))
+               {
+                   a.push_back(k);
+               }
+               auto sp=ms.find(s[k++]);
+               if(sp!=ms.end())
+               {
+                  ms.erase(sp);
+               }
+               cnt--;
+            }
+            ms.insert(s[j++]);
+            cnt++;
+        }
+        if(check(ms,p))
+        {
+            a.push_back(k);
+        }
+        return a;
+    }
+};
