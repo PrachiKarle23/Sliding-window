@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+       int n=s2.length(),k=s1.length();
+       sort(s1.begin(),s1.end());
+       int i=0,j=0;
+       string p="";
+       for(;j<=n;j++)
+       {
+          if(j>=k){
+            string s=p;
+            sort(s.begin(),s.end());
+            if(s==s1){
+                return true;
+            }
+            p.erase(p.begin());
+          }
+          if(j<n){
+              p+=s2[j];
+          }
+       }
+       return false;
+    }
+};
