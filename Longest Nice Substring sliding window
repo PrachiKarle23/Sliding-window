@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool check(string a)
+    {
+        unordered_map<char,int>mp;
+        for(int i=0;i<a.length();i++){
+            mp[a[i]]++;
+        }
+        for(int i=0;i<a.length();i++)
+        {
+            if(mp.find(toupper(a[i]))!=mp.end() && mp.find(tolower(a[i]))!=mp.end())
+            {
+                continue;
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+    string longestNiceSubstring(string s) {
+        int n=s.length();
+        int maxiLen=0;
+        string ans="";
+        for(int i=0;i<n;i++)
+        {
+            string a="";
+            for(int j=i;j<n;j++){
+              a+=s[j];
+              if(check(a)){
+                if(maxiLen<a.length()){
+                   ans=a;
+                   maxiLen=a.length();
+                } 
+              }
+           
+            }
+        }
+        return ans;
+    }
+};
