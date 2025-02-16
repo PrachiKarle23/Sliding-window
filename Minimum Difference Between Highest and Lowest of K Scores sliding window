@@ -1,0 +1,46 @@
+//sliding window
+class Solution {
+public:
+    int minimumDifference(vector<int>& nums, int k) {
+        sort(nums.begin(),nums.end());
+        int i=0,j=0;
+        int res=INT_MAX;
+
+        for(;j<nums.size();j++)
+        {
+            if(j-i+1==k){
+                res=min(res,nums[j]-nums[i]);
+                i++;
+            }
+        }
+        return res;
+    }
+};
+
+//TLE
+class Solution {
+public:
+    void solve(vector<int>& nums,int k, vector<int> a,int i,int &mini)
+    {
+        if(i>=nums.size()){
+            if(a.size()==k){
+              int maxEle= *max_element(a.begin(),a.end());
+              int minEle=* min_element(a.begin(),a.end());
+              if(mini>(maxEle-minEle)){
+                mini=maxEle-minEle;
+              }
+            }
+            return;
+        }
+        solve(nums,k,a,i+1,mini);
+        
+        a.push_back(nums[i]);
+        solve(nums,k,a,i+1,mini);
+    }
+    int minimumDifference(vector<int>& nums, int k) {
+        vector<int>a;
+        int mini=INT_MAX;
+        solve(nums,k,a,0,mini);
+        return mini;
+    }
+};
