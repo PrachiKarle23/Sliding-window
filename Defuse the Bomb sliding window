@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int solve(vector<int>& code,int i,int n,int k)
+    {
+        int sum=0;
+       while(i<n && k!=0){
+           sum+=code[i++];
+           k--;
+       }
+       i=0;
+       while(k!=0){
+        sum+=code[i++];
+        k--;
+       }
+       return sum;
+    }
+    int solve1(vector<int>& code,int i,int n,int k)
+    {
+        int sum=0;
+       while(i>=0 && k!=0)
+       {
+         sum+=code[i--];
+         k--;
+       }
+       i=n-1;
+       while(k!=0){
+         sum+=code[i--];
+         k--;
+       }
+       return sum;
+    }
+    vector<int> decrypt(vector<int>& code, int k) {
+        int n=code.size();
+        vector<int>a(n,0);
+        if(k==0){
+            return a;
+        }
+        else if(k<0){
+           for(int i=0;i<n;i++){
+              a[i]=solve1(code,i-1,n,abs(k));
+           }
+        }
+        else{
+            for(int i=0;i<n;i++){
+               a[i]=solve(code,i+1,n,k);
+            }
+        }
+        return a;
+    }
+};
