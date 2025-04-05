@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int divisorSubstrings(int num, int k) {
+        string a=to_string(num),b="";
+        int i=0,j=0,cnt=0;
+        for(;i<a.length();i++)
+        {
+            if(i>=k){
+               int n=stoi(b);
+               if(n!=0 && num%n==0){
+                 cnt++;
+               }
+               b=b.substr(1);
+               j++;
+            }
+            b+=a[i];
+        }
+        int n=stoi(b);
+        if(n!=0 && num%n==0)
+        {
+            cnt++;
+        }
+        return cnt;
+    }
+};
