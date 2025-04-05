@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool check(vector<int>& a) {
+        int diff = a[1] - a[0];
+        for (int i = 1; i < a.size(); i++) {
+            if (a[i] - a[i - 1] != diff) {
+                return false;
+            }
+        }
+        return true;
+    }
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        int n = nums.size(), cnt = 0;
+
+        for (int j = 0; j < n; j++) {
+            vector<int> a;
+            for (int i = 0; i < n; i++) {
+                if (a.size() >= 3) {
+                    if (check(a)) {
+                        cnt++;
+                    }
+                }
+                a.push_back(nums[i]);
+                
+            }
+            if (a.size() >= 3) {
+                if (check(a)) {
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+};
